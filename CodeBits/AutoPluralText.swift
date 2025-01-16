@@ -15,10 +15,12 @@ struct AutoPluralText: View {
       Text("""
                   You read ^[\(bookCount) book](inflect: true) this year!
                   """)
+      .font(.title)
       
       Button("Add a book") {
         bookCount += 1
       }
+      .font(.title)
     }
   }
 }
