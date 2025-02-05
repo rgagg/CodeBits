@@ -11,7 +11,14 @@ struct Buttons: View {
   
   @State private var buttonColor1: Color = .green
   @State private var buttonColor2: Color = .purple
-
+  @State private var buttonColor3: Color = .red
+  @State private var buttonColor4: Color = .pink
+  @State private var bipImage: String = "clown"
+  @State private var animateImage1: Bool = true
+  @State private var animateImage2: Bool = true
+  @State private var counter: Double = 0.75
+  @State private var sfColor: Color = .red
+  
   var body: some View {
     
     ScrollView {
@@ -100,6 +107,85 @@ struct Buttons: View {
           RoundedRectangle(cornerRadius: 12)
             .stroke(buttonColor2, lineWidth: 2)
         }
+        
+        Capsule()
+          .foregroundStyle(.purple)
+          .frame(height: 3)
+          .padding()
+        
+        Text("Button Bordered with Overlay 3")
+          .font(.title2)
+        
+        Button {
+          buttonColor3 = (buttonColor3 == .red ? .indigo : .red)
+          buttonColor4 = (buttonColor3 == .red ? .yellow : .cyan)
+        } label: {
+          Text("Click Me too!")
+            .font(.title2)
+        }
+        .tint(buttonColor3)
+        .buttonStyle(.bordered)
+        .overlay {
+          RoundedRectangle(cornerRadius: 12)
+            .stroke(LinearGradient(colors: [buttonColor3, buttonColor4], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+          
+        }
+        
+        Capsule()
+          .foregroundStyle(.purple)
+          .frame(height: 3)
+          .padding()
+        
+        Text("Button Custom Animated Image")
+          .font(.title2)
+        
+        Button {
+          // Code
+          
+        } label: {
+          
+          Image(bipImage)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 100, height: 100)
+            .scaleEffect(animateImage1 ? 1.0 : 0.9)
+            .onTapGesture {
+              animateImage1 = false
+              withAnimation(.spring(response: 0.3, dampingFraction: 0.3)) {
+                animateImage1 = true
+              }
+            }
+        }
+        .buttonStyle(.plain)
+        
+        Capsule()
+          .foregroundStyle(.purple)
+          .frame(height: 3)
+          .padding()
+        
+        Text("Button Custom Animated SF Symbol")
+          .font(.title2)
+        
+        Button {
+          // code in on tap gasture modifier
+        } label: {
+          Image(systemName: "dollarsign.ring.dashed", variableValue: counter)
+            .resizable()
+            .scaledToFit()
+            .symbolRenderingMode(.palette)
+            .foregroundStyle(sfColor)
+            .frame(width: 100, height: 100)
+            .scaleEffect(animateImage2 ? 1.0 : 0.9)
+            .onTapGesture {
+              counter = (counter > 0.9 ? 0 : counter + 0.05)
+              sfColor = (sfColor == .blue ? .red : .blue)
+              animateImage2 = false
+              withAnimation(.spring(response: 0.3, dampingFraction: 0.3)) {
+                animateImage2 = true
+              }
+            }
+        }
+        .buttonStyle(.plain)
         
         Capsule()
           .foregroundStyle(.purple)

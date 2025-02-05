@@ -45,10 +45,10 @@ struct BackgroundGradient: View {
           //        .black,
           //        .indigo,
           //        .red
+          .indigo,
           .blue,
-          .clear,
-          .red
-        ], center: .center)
+          .cyan
+        ], center: .center, startAngle: .degrees(0), endAngle: .degrees(360))
         .edgesIgnoringSafeArea(.all)
         
       default:
